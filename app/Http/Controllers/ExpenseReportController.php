@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\ExpenseReport;
+use App\Mail\SummaryReport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ExpenseReportController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -120,9 +126,11 @@ class ExpenseReportController extends Controller
         ]);
     }
 
-    public function sendMail($id)
+    public function sendMail(Request $request, $id)
     {
         $report = ExpenseReport::findOrFail($id);
-        return $report;
+        Mail::to($request->get('mail'))->send(new SummaryReport($report));
+
+        return redirect('/expense_reports/' . $id);
     }
 }

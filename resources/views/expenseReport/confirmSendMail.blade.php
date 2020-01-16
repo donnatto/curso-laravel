@@ -26,8 +26,8 @@
             <form action="/expense_reports/{{ $report->id }}/sendMail" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="text" name="email" class="form-control" id="email" placeholder="Type an email" value="{{ old('email') }}">
+                    <label for="mail">Email:</label>
+                    <input type="text" name="mail" class="form-control" id="mail" placeholder="Type an email" value="{{ old('mail') }}">
                 </div>
                 <button type="submit" class="btn btn-primary">Send mail</button>
             </form>
